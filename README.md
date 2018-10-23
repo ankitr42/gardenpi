@@ -1,1 +1,1 @@
-# raspi-watering-system
+# Raspberry PI based garden watering system
