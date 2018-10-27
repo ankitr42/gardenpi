@@ -1,11 +1,13 @@
 <html>
 	<head>
 		<title>WaterPI - WaterPI loves plants!</title>
+		<link rel="stylesheet" href="static/styles.css" type="text/css" />
+		
 		<script src="https://cdn.jsdelivr.net/npm/ractive"></script>
 		<script src="static/script.js"></script>
 		
 		<script id="logs-template" type="text/ractive">
-			<table>
+			<table class="logs-table">
 				<thead>
 					<tr>
 						<th>Pump Last Activated</th>
@@ -16,7 +18,7 @@
 					{{#each logs}}
 					<tr>
 						<td>{{formatEpoch(timestamp)}}</td>
-						<td>{{duration}}</td>
+						<td>{{duration}} seconds</td>
 					</tr>
 					{{/each}}
 				</tbody>

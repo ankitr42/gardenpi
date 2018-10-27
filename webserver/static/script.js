@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 	});
 	
-	fetch('/logs')
+	fetch('/logs', {'credentials': 'include'})
 		.then(response => response.json())
 		.then(logsJson => ractive.set('logs', logsJson._default));
 
