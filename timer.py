@@ -10,10 +10,10 @@ def runPumpTimer():
     lastTimestamp = datetime.fromtimestamp(float(lastLog['timestamp']))
     interval = (datetime.now() - lastTimestamp).total_seconds()
     
-    if (interval > consts.SECONDS_IN_DAY):
+    if (interval > consts.RUN_INTERVAL):
         pump.runPump()
    
-    threading.Timer(consts.SECONDS_IN_DAY, runPumpTimer).start()
+    threading.Timer(consts.RUN_INTERVAL, runPumpTimer).start()
 
 if __name__ == "__main__":
     runPumpTimer()

@@ -2,15 +2,16 @@ import sys
 import gpiozero
 import time
 from datetime import datetime
-
-import db
+from tinydb import TinyDB
 
 from consts import PUMP_RELAY_PIN
-from consts import LOG_FILE_PATH
+from consts import PUMP_LOG
 from consts import PUMP_RUNTIME
 
 pumpRelay = gpiozero.OutputDevice(PUMP_RELAY_PIN, active_high = False,
                                   initial_value = False)
+
+def 
 
 def runPump():
     pumpRelay.on()
@@ -18,7 +19,6 @@ def runPump():
     pumpRelay.off()
     
     # Log this run
-    # datetime.utcnow().strftime("%d-%b-%y %I:%M%p")
     entry = { 'timestamp': str(datetime.now().timestamp()),
                   'duration': str(PUMP_RUNTIME)}
     

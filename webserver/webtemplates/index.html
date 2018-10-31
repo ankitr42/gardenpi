@@ -1,3 +1,5 @@
+$def with (temp)
+
 <html>
 	<head>
 		<title>WaterPI - WaterPI loves plants!</title>
@@ -30,7 +32,9 @@
 		
 		<strong><em>
 			<p>
-				Plants are wonderful. They give us food to eat and air to breathe and don't ask for much in return.
+				Plants are wonderful: They give us food to eat, air to breathe and don't ask for much in return.
+			</p>
+			<p>
 				Unfortunately, they often get left alone for days at a time when their companion hoomans decide to travel.
 				They feel alone and hungry when that happens.
 			</p>
@@ -38,9 +42,18 @@
 				Thankfully, WaterPI is here, to take care of your plant friends when you're out.
 			</p>
 		</em></strong>
-		
-		<h3>WaterPI Logs</h3>
+		<br /><br /><br />
+		<h3>System Status</h3>
+		<p>Temperature: <span style="color: orange; font-weight: bold">$temp</span></p>
+		<br /><br />
+		<h3>WaterPI Logs (Auto-updates every 30secs)</h3>
 		<div id="logs-div">
+			
+		</div>
+		
+		<br /><br />
+		<button onclick="startFeed()">Start Live Feed</button>
+		<div id="live-feed">
 			
 		</div>
 		

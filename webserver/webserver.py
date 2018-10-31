@@ -1,5 +1,6 @@
 import web
 import re
+import os
 import base64
 
 urls = ('/', 'Index', '/logs', 'Logs', '/login', 'Login')
@@ -15,7 +16,8 @@ class Index:
 		if web.ctx.env.get('HTTP_AUTHORIZATION') is None:
 			web.seeother('/login')
 		else:
-			return html.index()
+			temp = os.popen("vcgencmd measure_temp").readline().replace('temp=', '')
+			return html.index(temp)
 
 class Logs:
 	def GET(self):
