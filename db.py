@@ -12,7 +12,10 @@ def logPumpRun(entry):
     pumpDB.insert(entry)
 
 def getLatestPumpRun():
-    return pumpDB.all()[-1]
+    if (len(pumpDB.all()) > 0):
+        return pumpDB.all()[-1]
+    else
+        return None
 
 def logFanRun(entry):
     fanDB.insert(entry)

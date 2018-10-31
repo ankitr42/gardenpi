@@ -17,8 +17,13 @@ pumpRelay = gpiozero.OutputDevice(PUMP_GPIO, active_high = False,
 
 def poll():
     lastLog = db.getLatestPumpRun()
-    lastTimestamp = datetime.fromtimestamp(float(lastLog['timestamp']))
-    interval = (datetime.now() - lastTimestamp).total_seconds()
+    interval = 0
+
+    if (lastLog is not None):
+        lastTimestamp = datetime.fromtimestamp(float(lastLog['timestamp']))
+        interval = (datetime.now() - lastTimestamp).total_seconds()
+    else
+        interval = consts.RUN_INTERVAL + 1
     
     if (interval > consts.RUN_INTERVAL):
         runPump()
