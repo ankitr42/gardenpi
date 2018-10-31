@@ -1,11 +1,21 @@
 from tinydb import TinyDB
 
-from consts import LOG_FILE_PATH
+from consts import PUMP_LOG
+from consts import CHARGE_LOG
+from consts import FAN_LOG
 
-db = TinyDB(LOG_FILE_PATH)
+pumpDB = TinyDB(PUMP_LOG)
+fanDB = TinyDB(FAN_LOG)
+chargeDB = TinyDB(CHARGE_LOG)
 
-def insertEntry(entry):
-    db.insert(entry)
-    
-def getLatestEntry():
-    return db.all()[-1]
+def logPumpRun(entry):
+    pumpDB.insert(entry)
+
+def getLatestPumpRun():
+    return pumpDB.all()[-1]
+
+def logFanRun(entry):
+    fanDB.insert(entry)
+
+def logChargeRun(entry):
+    chargeDB.insert(entry)

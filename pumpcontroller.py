@@ -1,17 +1,27 @@
+#
+#
+#
+
 import sys
 import gpiozero
 import time
 from datetime import datetime
-from tinydb import TinyDB
+import db
 
-from consts import PUMP_RELAY_PIN
-from consts import PUMP_LOG
+from consts import PUMP_GPIO
 from consts import PUMP_RUNTIME
+from consts import PUMP_RUN_INTERVAL
 
-pumpRelay = gpiozero.OutputDevice(PUMP_RELAY_PIN, active_high = False,
+pumpRelay = gpiozero.OutputDevice(PUMP_GPIO, active_high = False,
                                   initial_value = False)
 
-def 
+def poll():
+    lastLog = db.getLatestPumpRun()
+    lastTimestamp = datetime.fromtimestamp(float(lastLog['timestamp']))
+    interval = (datetime.now() - lastTimestamp).total_seconds()
+    
+    if (interval > consts.RUN_INTERVAL):
+        runPump()
 
 def runPump():
     pumpRelay.on()
@@ -22,8 +32,8 @@ def runPump():
     entry = { 'timestamp': str(datetime.now().timestamp()),
                   'duration': str(PUMP_RUNTIME)}
     
-    db.insertEntry(entry)
+    db.logPumpRun(entry)
     
 
 if __name__ == "__main__":
-    runPump()
+    poll()
