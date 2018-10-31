@@ -1,3 +1,3 @@
-# WaterPI - WaterPI loves plants!
+# GardenPI - GardenPI loves plants!
 
-WaterPI is a raspberry pi based watering system for your garden.
+GardenPI is a raspberry pi based watering system for your garden.
