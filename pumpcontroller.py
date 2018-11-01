@@ -45,7 +45,7 @@ def heartbeat():
                   'event': 'Heartbeat', 'duration': '1'}
     
     db.logPumpRun(entry)
-    threading.Timer(600, heartbeat).start()
+    # threading.Timer(600, heartbeat).start() - Handled by crontab
     
 if __name__ == "__main__":
 	if (len(sys.argv) == 2 and sys.argv[1] == 'runnow'):
