@@ -1,4 +1,4 @@
-from tinydb import TinyDB
+from tinydb import TinyDB, Query
 from threading import RLock
 
 from consts import PUMP_LOG
@@ -21,7 +21,8 @@ def logPumpRun(entry):
 
 def getLatestPumpRun():
 	with rlock:
-		if (len(pumpDB.all()) > 0):
+		pumpRun = Query()
+		if (len(pumpDB.search(pumpRun.event == 'Pump Run')) > 0):
 			return pumpDB.all()[-1]
 		else:
 			return None
@@ -33,3 +34,24 @@ def logFanRun(entry):
 def logChargeRun(entry):
 	with rlock:
 		chargeDB.insert(entry)
+
+def getRecentPumpRuns():
+	logs = pumpDB.all()
+	if (len(logs) > 25):
+		return logs[-25]
+	else:
+		return logs
+
+def getRecentFanRuns():
+	logs = fanDB.all()
+	if (len(logs) > 25):
+		return logs[-25]
+	else:
+		return logs
+
+def getRecentChargeRuns():
+	logs = chargeDB.all()
+	if (len(logs) > 25):
+		return logs[-25]
+	else:
+		return logs

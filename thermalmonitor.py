@@ -19,7 +19,7 @@ fanRelay = gpiozero.OutputDevice(FAN_GPIO, active_high = False,
 
 def heartbeat():
 	entry = { 'timestamp': str(datetime.now().timestamp()),
-		'event': 'Heartbeat', 'Temp': 'Dummy'}
+		'event': 'Heartbeat', 'temp': measure_temp()}
 	db.logFanRun(entry)
 	threading.Timer(600, heartbeat).start()
 
@@ -37,13 +37,14 @@ while True:
 		fanState = True
 		# Log this run
 		entry = { 'timestamp': str(datetime.now().timestamp()),
-			'event': 'Switch On', 'Temp': str(currTemp)}
+			'event': 'Switch On', 'temp': str(currTemp)}
 		db.logFanRun(entry)
 
 	elif (currTemp < TEMP_COOLDOWN and fanState is True):
 		fanRelay.off()
 		fanState = False
 		entry = { 'timestamp': str(datetime.now().timestamp()),
-			'event': 'Switch Off', 'Temp': str(currTemp)}
+			'event': 'Switch Off', 'temp': str(currTemp)}
+		db.logFanRun(entry)
 	
 	time.sleep(TEMP_POLL_INTERVAL)

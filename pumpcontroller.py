@@ -48,5 +48,8 @@ def heartbeat():
     threading.Timer(600, heartbeat).start()
     
 if __name__ == "__main__":
-    heartbeat()
-    poll()
+	if (len(sys.argv) == 2 and sys.argv[1] == 'runnow'):
+		runPump()
+	else:
+		heartbeat()
+		poll()

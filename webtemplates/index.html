@@ -1,0 +1,120 @@
+$def with (temp)
+
+<html>
+	<head>
+		<title>WaterPI - WaterPI loves plants!</title>
+		<link rel="stylesheet" href="static/styles.css" type="text/css" />
+		
+		<script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+		<script src="static/script.js"></script>
+		
+		<script id="pump-logs-template" type="text/ractive">
+			<table class="pump-logs-table">
+				<thead>
+					<tr>
+						<th>Time</th>
+						<th>Event</th>
+						<th>Duration</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each logs}}
+					<tr>
+						<td>{{formatEpoch(timestamp)}}</td>
+						<td>{{event}}</td>
+						<td>{{duration}} seconds</td>
+					</tr>
+					{{/each}}
+					<tr><a href="{{fullLogs}}" target="_blank">View full logs</a></tr>
+				</tbody>
+			</table>
+		</script>
+		
+		<script id="thermal-logs-template" type="text/ractive">
+			<table class="thermal-logs-table">
+				<thead>
+					<tr>
+						<th>Timestamp</th>
+						<th>Event</th>
+						<th>Temperature</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each logs}}
+					<tr>
+						<td>{{formatEpoch(timestamp)}}</td>
+						<td>{{event}}</td>
+						<td>{{temp}} 'C</td>
+					</tr>
+					{{/each}}
+					<tr><a href="{{fullLogs}}" target="_blank">View full logs</a></tr>
+				</tbody>
+			</table>
+		</script>
+		
+		<script id="charge-logs-template" type="text/ractive">
+			<table class="charge-logs-table">
+				<thead>
+					<tr>
+						<th>Timestamp</th>
+						<th>Event</th>
+					</tr>
+				</thead>
+				<tbody>
+					{{#each logs}}
+					<tr>
+						<td>{{formatEpoch(timestamp)}}</td>
+						<td>{{event}}</td>
+					</tr>
+					{{/each}}
+					<tr><a href="{{fullLogs}}" target="_blank">View full logs</a></tr>
+				</tbody>
+			</table>
+		</script>
+	</head>
+	<body>
+		<h1>WaterPI - WaterPI loves plants!</h1>
+		
+		<strong><em>
+			<p>
+				Plants are wonderful: They give us food to eat, air to breathe and don't ask for much in return.
+			</p>
+			<p>
+				Unfortunately, they often get left alone for days at a time when their companion hoomans decide to travel.
+				They feel alone and hungry when that happens.
+			</p>
+			<p>
+				Thankfully, WaterPI is here, to take care of your plant friends when you're out.
+			</p>
+		</em></strong>
+		<br /><br /><br />
+		<h3>System Status</h3>
+		<p>Temperature: <span style="color: orange; font-weight: bold">$temp</span></p>
+		<br /><br />
+		
+		<button onclick="window.open('/operation/runpump')">Run Pump Now</button>
+		<h3>Recent Pump Logs (Auto-updates every 30secs)</h3>
+		<div id="pump-logs-div">
+			
+		</div>
+		
+		<br /><br />
+		<h3>Recent Thermal Logs (Auto-updates every 30secs)</h3>
+		<div id="thermal-logs-div">
+			
+		</div>
+		
+		<br /><br />
+		<h3>Recent Charge Logs (Auto-updates every 10 minutes)</h3>
+		<div id="charge-logs-div">
+			
+		</div>
+		
+		<br /><br />
+		<button onclick="startFeed()">Start Live Feed</button>
+		<div id="live-feed">
+			
+		</div>
+		
+	</body>
+</html>
