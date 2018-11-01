@@ -4,7 +4,7 @@ $def with (temp)
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
-		<title>WaterPI - WaterPI loves plants!</title>
+		<title>GardenPI - GardenPI loves plants!</title>
 		<link rel="stylesheet" href="static/styles.css" type="text/css" />
 		
 		<script src="https://cdn.jsdelivr.net/npm/ractive"></script>
@@ -75,7 +75,7 @@ $def with (temp)
 		</script>
 	</head>
 	<body>
-		<h1>WaterPI - WaterPI loves plants!</h1>
+		<h1>GardenPI - GardenPI loves plants!</h1>
 		
 		<strong><em>
 			<p>
@@ -86,15 +86,17 @@ $def with (temp)
 				They feel alone and hungry.
 			</p>
 			<p>
-				Thankfully, WaterPI is here, to take care of your plant friends when you're out.
+				Thankfully, GardenPI is here, to take care of your plant friends when you're out.
 			</p>
 		</em></strong>
-		<br /><br /><br />
+		<br /><br />
 		<h3>System Status</h3>
 		<p>Temperature: <span style="color: orange; font-weight: bold">$temp</span></p>
 		<br /><br />
 		
 		<button onclick="window.open('/operation/runpump')">Run Pump Now</button>
+		<br />
+		<button onclick="startFeed()">Start Live Feed</button>
 		<h3>Recent Pump Logs (Auto-updates every 30secs)</h3>
 		<div id="pump-logs-div">
 			
@@ -113,7 +115,6 @@ $def with (temp)
 		</div>
 		
 		<br /><br />
-		<button onclick="startFeed()">Start Live Feed</button>
 		<div id="live-feed">
 			
 		</div>

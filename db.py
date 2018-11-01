@@ -38,20 +38,20 @@ def logChargeRun(entry):
 def getRecentPumpRuns():
 	logs = pumpDB.all()
 	if (len(logs) > 25):
-		return logs[-25]
+		return logs[-25:]
 	else:
 		return logs
 
 def getRecentFanRuns():
 	logs = fanDB.all()
 	if (len(logs) > 25):
-		return logs[-25]
+		return logs[-25:]
 	else:
 		return logs
 
 def getRecentChargeRuns():
 	logs = chargeDB.all()
 	if (len(logs) > 25):
-		return logs[-25]
+		return logs[-25:]
 	else:
 		return logs
