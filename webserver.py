@@ -5,7 +5,7 @@ import base64
 import db
 import json
 
-urls = ('/', 'Index', '/logs/(.*)/(.*)', 'Logs', '/login', 'Login', '/operation/(.*)', 'Operation')
+urls = ('/', 'Index', '/logs/(.*)/(.*)', 'Logs', '/login', 'Login', '/operation/(.*)', 'Operations')
 html = web.template.render('webtemplates')
 logs = web.template.render('cache')
 
@@ -64,7 +64,8 @@ class Operations:
 		if web.ctx.env.get('HTTP_AUTHORIZATION') is None:
 			web.seeother('/login')
 		elif(operation == 'runpump'):
-			return os.popen("python3 pumpcontroller.py runnow").readline()
+			os.popen("python3 pumpcontroller.py runnow &")
+			return "Success"
 			
 
 def startServer():
