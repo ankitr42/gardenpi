@@ -7,6 +7,7 @@ import gpiozero
 import time
 from datetime import datetime
 import db
+import threading
 
 from consts import PUMP_GPIO
 from consts import PUMP_RUNTIME
@@ -22,10 +23,10 @@ def poll():
     if (lastLog is not None):
         lastTimestamp = datetime.fromtimestamp(float(lastLog['timestamp']))
         interval = (datetime.now() - lastTimestamp).total_seconds()
-    else
-        interval = consts.RUN_INTERVAL + 1
+    else:
+        interval = PUMP_RUN_INTERVAL + 1
     
-    if (interval > consts.RUN_INTERVAL):
+    if (interval > PUMP_RUN_INTERVAL):
         runPump()
 
 def runPump():
@@ -35,10 +36,17 @@ def runPump():
     
     # Log this run
     entry = { 'timestamp': str(datetime.now().timestamp()),
-                  'duration': str(PUMP_RUNTIME)}
+                  'event': 'Pump Run', 'duration': str(PUMP_RUNTIME)}
     
     db.logPumpRun(entry)
-    
 
+def heartbeat():
+    entry = { 'timestamp': str(datetime.now().timestamp()),
+                  'event': 'Heartbeat', 'duration': '1'}
+    
+    db.logPumpRun(entry)
+    threading.Timer(600, heartbeat).start()
+    
 if __name__ == "__main__":
+    heartbeat()
     poll()

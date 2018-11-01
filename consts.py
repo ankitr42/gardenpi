@@ -2,6 +2,7 @@ PUMP_LOG = "cache/pumplog.json"
 CHARGE_LOG = "cache/chargelog.json"
 FAN_LOG = "cache/fanlog.json"
 SYSCONFIG = "cache/config.json"
+SERVICE_LOG = "cache/servicelog.json"
 
 PUMP_GPIO = 3
 PUMP_RUNTIME = 15
