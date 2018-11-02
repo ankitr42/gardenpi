@@ -24,8 +24,15 @@ def heartbeat():
 
 heartbeat()
 
-chargeState = False
 while True:
+    # Stop charging
+    chargeRelay.off()
+    entry = { 'timestamp': str(datetime.now().timestamp()),
+                'event': 'Switch Off'}
+    db.logChargeRun(entry)
+
+    time.sleep(CHARGER_OFFTIME)
+
     # Start charging
     chargeRelay.on()
     entry = { 'timestamp': str(datetime.now().timestamp()),
@@ -33,11 +40,3 @@ while True:
     db.logChargeRun(entry)
 
     time.sleep(CHARGER_RUNTIME)
-
-    # Stop charging charging
-    chargerRelay.off()
-    entry = { 'timestamp': str(datetime.now().timestamp()),
-                'event': 'Switch Off'}
-    db.logChargeRun(entry)
-
-    time.sleep(CHARGER_OFFTIME)
