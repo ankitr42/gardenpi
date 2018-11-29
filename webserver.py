@@ -15,7 +15,8 @@ users = (
 
 class Index:
 	def GET(self):
-		if web.ctx.env.get('HTTP_AUTHORIZATION') is None:
+		auth = web.ctx.env.get('HTTP_AUTHORIZATION')
+		if auth is None or validateUser(auth) is False:
 			web.seeother('/login')
 		else:
 			temp = os.popen("vcgencmd measure_temp").readline().replace('temp=', '')
@@ -23,7 +24,8 @@ class Index:
 
 class Logs:
 	def GET(self, logcat, since):
-		if web.ctx.env.get('HTTP_AUTHORIZATION') is None:
+		auth = web.ctx.env.get('HTTP_AUTHORIZATION')
+		if auth is None or validateUser(auth) is False:
 			web.seeother('/login')
 		elif(logcat == 'pump'):
 			if (since == 'all'):
@@ -48,12 +50,10 @@ class Login:
         if auth is None:
             authreq = True
         else:
-            auth = re.sub('^Basic ','',auth)
-            username,password = base64.decodestring(auth).split(':')
-            if (username,password) in users:
-                raise web.seeother('/')
-            else:
-                authreq = True
+			if validateUser(auth):
+				raise web.seeother('/')
+			else:
+				authreq = True
         if authreq:
             web.header('WWW-Authenticate','Basic realm="WaterPI"')
             web.ctx.status = '401 Unauthorized'
@@ -61,12 +61,20 @@ class Login:
             
 class Operations:
 	def GET(self, operation):
-		if web.ctx.env.get('HTTP_AUTHORIZATION') is None:
+		auth = web.ctx.env.get('HTTP_AUTHORIZATION')
+		if auth is None or validateUser(auth) is False:
 			web.seeother('/login')
 		elif(operation == 'runpump'):
 			os.popen("python3 pumpcontroller.py runnow &")
 			return "Success"
 			
+def validateUser(auth):
+	auth = re.sub('^Basic ','',auth)
+	username,password = base64.decodestring(auth).split(':')
+	if (username, password) in users:
+		return True
+	else:
+		return False
 
 def startServer():
     app = web.application(urls, globals())

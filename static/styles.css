@@ -1,5 +1,15 @@
 html {
 	font-size: 1em;
+	background: antiquewhite;
+}
+
+body {
+	width: 50%;
+	margin: auto;
+	background: white;
+	padding: 10px;
+	border-left: 1px solid lightblue;
+	border-right: 1px solid lightblue;
 }
 
 table {

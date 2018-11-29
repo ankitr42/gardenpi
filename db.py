@@ -22,8 +22,9 @@ def logPumpRun(entry):
 def getLatestPumpRun():
 	with rlock:
 		pumpRun = Query()
-		if (len(pumpDB.search(pumpRun.event == 'Pump Run')) > 0):
-			return pumpDB.all()[-1]
+		searchResult = pumpDB.search(pumpRun.event == "Pump Run")
+		if (len(searchResult) > 0):
+			return searchResult[-1]
 		else:
 			return None
 
